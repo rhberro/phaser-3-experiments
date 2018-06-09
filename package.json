@@ -1,0 +1,20 @@
+{
+  "name": "SpaceShooter",
+  "version": "0.0.1",
+  "description": "My game.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "develop": "webpack --watch"
+  },
+  "author": "Rafael Henrique Berro",
+  "license": "MIT",
+  "dependencies": {
+    "phaser-ce": "^2.9.4"
+  },
+  "devDependencies": {
+    "expose-loader": "^0.7.4",
+    "file-loader": "^1.1.6",
+    "webpack": "^3.10.0"
+  }
+}
