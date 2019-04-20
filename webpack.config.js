@@ -1,30 +1,47 @@
 const path = require('path')
 
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
-  entry: path.resolve(__dirname, 'source/game.js'),
+  mode: 'development',
+  entry: path.resolve(__dirname, 'source'),
   output: {
-    path: path.resolve(__dirname, 'build/'),
-    filename: 'index.js'
+    path: path.resolve(__dirname, 'build')
   },
   module: {
-    loaders: [
-      // Required (Phaser).
-      { test: /pixi\.js$/, loader: 'expose-loader?PIXI' },
-      { test: /phaser-split\.js$/, loader: 'expose-loader?Phaser' },
-      { test: /p2\.js$/, loader: 'expose-loader?p2' },
-
-      { test: /\.(png|ogg|json)$/, loader: 'file-loader', options: { outputPath: 'assets/' } }
+    rules: [
+      {
+        test: /\.(js)$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(png)$/,
+        loader: 'file-loader',
+        options: { outputPath: 'assets/' }
+      }
     ]
   },
   resolve: {
     alias: {
-      // Required (Phaser).
-      'phaser': path.join(__dirname, '/node_modules/phaser-ce/build/custom/phaser-split.js'),
-      'pixi': path.join(__dirname, '/node_modules/phaser-ce/build/custom/pixi.js'),
-      'p2': path.join(__dirname, '/node_modules/phaser-ce/build/custom/p2.js'),
-
-      'assets': path.join(__dirname, '/source/assets/')
+      'assets': path.resolve(__dirname, './source/assets'),
+      'objects': path.resolve(__dirname, './source/objects'),
+      'scenes': path.resolve(__dirname, './source/scenes'),
+      'utilities': path.resolve(__dirname, './source/utilities')
     }
   },
-  devtool: 'eval-cheap-module-source-map'
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin(
+      {
+        template: path.resolve(__dirname, 'source/index.html'),
+        favicon: path.resolve(__dirname, 'source/favicon.ico')
+      }
+    )
+  ],
+  devtool: 'eval-cheap-module-source-map',
+  devServer: {
+    contentBase: path.resolve(__dirname, 'build'),
+  }
 }

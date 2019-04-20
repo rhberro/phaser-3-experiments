@@ -1,6 +1,5 @@
 # Node Package Manager.
-.node_modules/
+node_modules/
 
 # Application.
 build/
-

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "assets/*": ["./source/assets/*"],
+      "objects/*": ["./source/objects/*"],
+      "scenes/*": ["./source/scenes/*"],
+      "utilities/*": ["./source/utilities/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
+}
