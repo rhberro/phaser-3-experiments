@@ -4,6 +4,7 @@ import { getAngleBetween } from 'utilities/math';
 
 import CannonBody from 'objects/Cannon/CannonBody'
 import CannonHead from 'objects/Cannon/CannonHead'
+import CannonBall from 'objects/CannonBall/CannonBall';
 
 class Cannon extends GameObjects.Container {
   /**
@@ -21,11 +22,16 @@ class Cannon extends GameObjects.Container {
    */
   circle = null
 
+  /**
+   * The cannon balls.
+   */
+  balls = []
+
   constructor (scene, x, y, children) {
     super(
       scene,
-      100,
-      100,
+      scene.sys.canvas.width - 90,
+      scene.sys.canvas.height - 90,
       [
         new CannonBody(scene, 0, 0),
         new CannonHead(scene, 0, 0),
@@ -37,7 +43,7 @@ class Cannon extends GameObjects.Container {
     this.cooldown = this.scene.time.addEvent(
       {
         delay: 2000,
-        callback: () => console.log('shooting!'),
+        callback: this.shoot,
         callbackScope: this,
         loop: true,
       }
@@ -59,6 +65,16 @@ class Cannon extends GameObjects.Container {
 
   update () {
     this.angle = getAngleBetween(this, this.scene.input.activePointer)
+  }
+
+  shoot = () => {
+    const ball = new CannonBall(this.scene, this.x + 30, this.y + 30)
+    console.log('Shooting!')
+    console.log(this.x)
+
+    this.balls = [ ...this.balls, ball ]
+
+    ball.create()
   }
 }
  

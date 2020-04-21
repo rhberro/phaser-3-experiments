@@ -19,14 +19,6 @@ class Game extends Phaser.Game {
             debug: true,
           }
         },
-        plugins: {
-          global: [
-            {
-              start: true,
-              key: 'bulletPlugin',
-            }
-          ]
-        },
       }
     )
 
